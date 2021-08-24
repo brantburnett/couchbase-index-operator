@@ -1,0 +1,20 @@
+# permissions for end users to view globalsecondaryindices.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: couchbaseindexsets-viewer-role
+rules:
+- apiGroups:
+  - couchbase.btburnett.com
+  resources:
+  - couchbaseindexsets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - couchbase.btburnett.com
+  resources:
+  - couchbaseindexsets/status
+  verbs:
+  - get

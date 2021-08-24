@@ -1,0 +1,24 @@
+# permissions for end users to edit globalsecondaryindices.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: couchbaseindexset-editor-role
+rules:
+- apiGroups:
+  - couchbase.btburnett.com
+  resources:
+  - couchbaseindexsets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - couchbase.btburnett.com
+  resources:
+  - couchbaseindexsets/status
+  verbs:
+  - get

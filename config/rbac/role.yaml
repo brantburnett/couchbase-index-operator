@@ -1,0 +1,35 @@
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  creationTimestamp: null
+  name: manager-role
+  namespace: system
+rules:
+- apiGroups:
+  - couchbase.btburnett.com
+  resources:
+  - couchbaseindexsets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - couchbase.btburnett.com
+  resources:
+  - couchbaseindexsets/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - couchbase.btburnett.com
+  resources:
+  - couchbaseindexsets/status
+  verbs:
+  - get
+  - patch
+  - update

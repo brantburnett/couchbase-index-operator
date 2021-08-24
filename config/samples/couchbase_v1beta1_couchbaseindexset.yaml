@@ -1,0 +1,22 @@
+apiVersion: couchbase.btburnett.com/v1beta1
+kind: CouchbaseIndexSet
+metadata:
+  name: couchbaseindexset-sample
+spec:
+  cluster: 
+    clusterRef:
+      name: cb-example # name of the CouchbaseCluster resource in Kubernetes
+  bucketName: default
+  indices:
+  - name: example
+    indexKey:
+    - type
+    - id
+  - name: example2
+    indexKey:
+    - type
+    - name
+    - id
+    partition:
+      expressions:
+      - meta().id
