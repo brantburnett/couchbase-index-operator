@@ -9,19 +9,16 @@ ARG ENABLE_NONROOT_DOCKER="true"
 # [Option] Use the OSS Moby CLI instead of the licensed Docker CLI
 ARG USE_MOBY="false"
 
-# [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
-ARG NODE_VERSION="none"
-RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
-
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends bash-completion
 
-# [Optional] Uncomment the next line to use go get to install anything else you need
-# RUN go get -x <your-dependency-or-tool>
-
-# [Optional] Uncomment this line to install global node packages.
-# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+# Install operator-sdk
+ARG OPERATOR_SDK_VERSION="1.11.0"
+ARG OPERATOR_SDK_KEY_SERVER="keyserver.ubuntu.com"
+ARG OPERATOR_SDK_GPG_KEY="052996E2A20B5C7E"
+COPY library-scripts/install-operator-sdk.sh /tmp/library-scripts/install-operator-sdk.sh
+RUN /tmp/library-scripts/install-operator-sdk.sh "${OPERATOR_SDK_VERSION}" "${OPERATOR_SDK_KEY_SERVER}" "${OPERATOR_SDK_GPG_KEY}"
 
 # Install kubectl
 RUN curl -sSL -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
