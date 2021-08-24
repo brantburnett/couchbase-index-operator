@@ -11,7 +11,7 @@ It then makes any changes required to align the infrastructure with the desired 
 does so using [couchbase-index-manager](https://github.com/brantburnett/couchbase-index-manager)
 under the hood.
 
-> :info: The operator will not delete any indices it doesn't manage, so it plays well alongside other
+> :information_source: The operator will not delete any indices it doesn't manage, so it plays well alongside other
 > index management approaches. The only indices it will delete are indices that are removed from a
 > CouchbaseIndexSet or when an entire CouchbaseIndexSet is deleted.
 
@@ -39,7 +39,7 @@ present security concerns or difficulties when testing upgrades of the operator.
 It is recommended to deploy the operator to target a specific namespace using
 `--watch-namespace=your-namespace` or the `WATCH_NAMESPACE` environment variable.
 
-> :info: The example deployment fills the `WATCH_NAMESPACE` environment variable automatically with the
+> :information_source: The example deployment fills the `WATCH_NAMESPACE` environment variable automatically with the
 > namespace where the operator is deployed.
 
 ### Using a custom couchbase-index-manager image
