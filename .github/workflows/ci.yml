@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
       - run: echo "VERSION=${GITHUB_REF/refs\/tags\/release\//}" >> $GITHUB_ENV
         if: ${{ startsWith(github.ref, 'refs/tags/release/') }}
-      - run: echo "VERSION=PR-${{github.event.issue.number}}" >> $GITHUB_ENV
+      - run: echo "VERSION=PR-${{github.event.number}}" >> $GITHUB_ENV
         if: ${{ !startsWith(github.ref, 'refs/tags/release/') }}
 
       - name: Set up Go
