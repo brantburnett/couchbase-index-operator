@@ -70,7 +70,7 @@ func getCbimImageEnv() string {
 
 	ns, found := os.LookupEnv(watchNamespaceEnvVar)
 	if !found {
-		return "btburnett3/couchbase-index-manager:1.0.1"
+		return "btburnett3/couchbase-index-manager:2.0.0-beta001"
 	}
 	return ns
 }

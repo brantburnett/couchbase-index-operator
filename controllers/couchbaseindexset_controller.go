@@ -34,6 +34,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
 
 	v1beta1 "github.com/brantburnett/couchbase-index-operator/api/v1beta1"
+	cbim "github.com/brantburnett/couchbase-index-operator/cbim"
 	"github.com/go-logr/logr"
 )
 
@@ -53,11 +54,11 @@ type CouchbaseIndexSetReconcileContext struct {
 	logr.Logger
 	Reconciler *CouchbaseIndexSetReconciler
 
-	IndexSet           v1beta1.CouchbaseIndexSet
-	ConnectionString   string
-	AdminSecretName    string
-	DeletingIndexNames []string
-	IsDeleting         bool
+	IndexSet         v1beta1.CouchbaseIndexSet
+	ConnectionString string
+	AdminSecretName  string
+	DeletingIndexes  []cbim.GlobalSecondaryIndexIdentifier
+	IsDeleting       bool
 }
 
 //+kubebuilder:rbac:groups=couchbase.btburnett.com,namespace=system,resources=couchbaseindexsets,verbs=get;list;watch;create;update;patch;delete

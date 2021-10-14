@@ -13,6 +13,8 @@ spec:
     - type
     - id
   - name: example2
+    scopeName: my_scope
+    collectionName: my_collection
     indexKey:
     - type
     - name

@@ -109,6 +109,12 @@ spec:
                   description: Defines the desired state of a Couchbase Global Secondary
                     Index
                   properties:
+                    collectionName:
+                      description: Name of the index's collection, assumes "_default"
+                        if not present
+                      minLength: 1
+                      pattern: ^_default$|^[A-Za-z0-9\-][A-Za-z0-9_\-%]*$
+                      type: string
                     condition:
                       description: Conditions to filter documents included on the
                         index
@@ -157,6 +163,12 @@ spec:
                       description: Enable for Sync Gateway indices to preserve deleted
                         XAttrs
                       type: boolean
+                    scopeName:
+                      description: Name of the index's scope, assumes "_default" if
+                        not present
+                      minLength: 1
+                      pattern: ^_default$|^[A-Za-z0-9\-][A-Za-z0-9_\-%]*$
+                      type: string
                   required:
                   - indexKey
                   - name
