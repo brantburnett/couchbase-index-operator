@@ -34,6 +34,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 
 	v1beta1 "github.com/brantburnett/couchbase-index-operator/api/v1beta1"
+	cbim "github.com/brantburnett/couchbase-index-operator/cbim"
 )
 
 const gsiAnnotationKey = "couchbase.btburnett.com/gsi"
@@ -284,10 +285,13 @@ func (context *CouchbaseIndexSetReconcileContext) createJob() error {
 
 	gsiAnnotation := gsiAnnotation{
 		Adding:   make([]string, len(context.IndexSet.Spec.Indices)),
-		Deleting: context.DeletingIndexNames,
+		Deleting: make([]string, len(context.DeletingIndexes)),
 	}
 	for i, v := range context.IndexSet.Spec.Indices {
-		gsiAnnotation.Adding[i] = v.Name
+		gsiAnnotation.Adding[i] = cbim.GetIndexIdentifier(v).ToString()
+	}
+	for i, v := range context.DeletingIndexes {
+		gsiAnnotation.Deleting[i] = v.ToString()
 	}
 	gsiAnnotationValue, _ := json.Marshal(gsiAnnotation)
 

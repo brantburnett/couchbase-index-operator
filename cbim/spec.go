@@ -25,17 +25,17 @@ import (
 	couchbasev1beta1 "github.com/brantburnett/couchbase-index-operator/api/v1beta1"
 )
 
-func GenerateYaml(indexSet *couchbasev1beta1.CouchbaseIndexSet, deletingIndexNames *[]string) (string, error) {
+func GenerateYaml(indexSet *couchbasev1beta1.CouchbaseIndexSet, deletingIndexes *[]GlobalSecondaryIndexIdentifier) (string, error) {
 	var sb strings.Builder
 
-	definedIndexNames := map[string]bool{}
+	definedIndexes := map[GlobalSecondaryIndexIdentifier]bool{}
 
 	if indexSet.GetDeletionTimestamp() == nil {
 		// Only create indices if we're not deleting the index set
 		// If we are deleting, this will leave definedIndexNames empty so all indices are deleted
 
 		for _, gsi := range indexSet.Spec.Indices {
-			definedIndexNames[gsi.Name] = true
+			definedIndexes[GetIndexIdentifier(gsi)] = true
 
 			if err := addIndexSpec(&sb, createIndexSpec(&gsi)); err != nil {
 				return "", err
@@ -43,13 +43,15 @@ func GenerateYaml(indexSet *couchbasev1beta1.CouchbaseIndexSet, deletingIndexNam
 		}
 	}
 
-	*deletingIndexNames = []string{}
-	for _, indexName := range indexSet.Status.Indices {
-		if !definedIndexNames[indexName] {
-			*deletingIndexNames = append(*deletingIndexNames, indexName)
+	*deletingIndexes = []GlobalSecondaryIndexIdentifier{}
+	for _, index := range indexSet.Status.Indices {
+		if indexIdentifier, err := ParseIndexIdentifierString(index); err == nil {
+			if !definedIndexes[indexIdentifier] {
+				*deletingIndexes = append(*deletingIndexes, indexIdentifier)
 
-			if err := addIndexSpec(&sb, createIndexDeleteSpec(indexName)); err != nil {
-				return "", err
+				if err := addIndexSpec(&sb, createIndexDeleteSpec(indexIdentifier)); err != nil {
+					return "", err
+				}
 			}
 		}
 	}
@@ -74,6 +76,8 @@ func addIndexSpec(sb *strings.Builder, spec IndexSpec) error {
 func createIndexSpec(gsi *couchbasev1beta1.GlobalSecondaryIndex) IndexSpec {
 	return IndexSpec{
 		Name:               gsi.Name,
+		Scope:              gsi.ScopeName,
+		Collection:         gsi.CollectionName,
 		IndexKey:           &gsi.IndexKey,
 		Condition:          gsi.Condition,
 		NumReplicas:        gsi.NumReplicas,
@@ -103,9 +107,11 @@ func mapPartitionStrategy(strategy *string) *string {
 	return &result
 }
 
-func createIndexDeleteSpec(indexName string) IndexSpec {
+func createIndexDeleteSpec(indexIdentifier GlobalSecondaryIndexIdentifier) IndexSpec {
 	return IndexSpec{
-		Name: indexName,
+		Name:       indexIdentifier.Name,
+		Scope:      &indexIdentifier.ScopeName,
+		Collection: &indexIdentifier.CollectionName,
 		Lifecycle: &LifecycleSpec{
 			Drop: pointer.BoolPtr(true),
 		},

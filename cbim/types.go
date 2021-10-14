@@ -33,6 +33,8 @@ type LifecycleSpec struct {
 type IndexSpec struct {
 	Type               string         `json:"type,omitempty"`
 	Name               string         `json:"name"`
+	Scope              *string        `json:"scope,omitempty"`
+	Collection         *string        `json:"collection,omitempty"`
 	IsPrimary          *bool          `json:"is_primary,omitempty"`
 	IndexKey           *[]string      `json:"index_key,omitempty"`
 	Condition          *string        `json:"condition,omitempty"`

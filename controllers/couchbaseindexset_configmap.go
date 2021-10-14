@@ -52,7 +52,7 @@ func (context *CouchbaseIndexSetReconcileContext) reconcileConfigMap() (string, 
 		}
 	}
 
-	yaml, err := cbim.GenerateYaml(&context.IndexSet, &context.DeletingIndexNames)
+	yaml, err := cbim.GenerateYaml(&context.IndexSet, &context.DeletingIndexes)
 	if err != nil {
 		context.Error(err, "Error generating index spec")
 		return "", err

@@ -45,6 +45,14 @@ type GlobalSecondaryIndex struct {
 	//+kubebuilder:validation:Pattern:=^[A-Za-z][A-Za-z0-9#_]*$
 	// Name of the index
 	Name string `json:"name"`
+	//+kubebuilder:validation:MinLength:=1
+	//+kubebuilder:validation:Pattern:="^_default$|^[A-Za-z0-9\\-][A-Za-z0-9_\\-%]*$"
+	// Name of the index's scope, assumes "_default" if not present
+	ScopeName *string `json:"scopeName,omitempty"`
+	//+kubebuilder:validation:MinLength:=1
+	//+kubebuilder:validation:Pattern:="^_default$|^[A-Za-z0-9\\-][A-Za-z0-9_\\-%]*$"
+	// Name of the index's collection, assumes "_default" if not present
+	CollectionName *string `json:"collectionName,omitempty"`
 	//+kubebuilder:validation:MinItems:=1
 	// List of properties or deterministic functions which make up the index key
 	IndexKey []string `json:"indexKey"`
