@@ -31,6 +31,7 @@
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
+    "github.vscode-pull-request-github",
     "golang.Go",
     "ms-azuretools.vscode-docker",
     "ms-kubernetes-tools.vscode-kubernetes-tools"
