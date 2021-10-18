@@ -21,10 +21,10 @@ may target any accessible Couchbase cluster.
 
 ## Installing
 
-An example installation is available in the `config/default` directory.
+Example installations are available in the `docs/install` directory.
 
 ```sh
-kubectl apply -k https://github.com/brantburnett/couchbase-index-operator/config/default
+kubectl apply -f https://github.com/brantburnett/couchbase-index-operator/docs/install/v1.0.0.yaml
 ```
 
 This will deploy the operator in the default namespace, and it will only operate on resources

@@ -12,6 +12,7 @@ spec:
     indexKey:
     - type
     - id
+    numReplicas: 0
   - name: example2
     scopeName: my_scope
     collectionName: my_collection
