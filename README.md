@@ -87,7 +87,7 @@ spec:
 
 ### Targeting an externally managed Couchbase cluster
 
-To target an externally managed Couchbase cluster, use `manualRef` instead of `clusterRef`.
+To target an externally managed Couchbase cluster, use `manual` instead of `clusterRef`.
 The referenced [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) must exist
 in the same namespace as the CouchbaseIndexSet, and contain two keys `username` and `password`.
 
@@ -98,13 +98,13 @@ metadata:
   name: couchbaseindexset-sample
 spec:
   cluster: 
-    manualRef:
+    manual:
       # Name of the CouchbaseCluster resource in Kubernetes
       connectionString: couchbase://cb-example
       # Name of the secret containing username and password keys
       # It must reside in the same namespace as the CouchbaseIndexSet
       secretName: cb-example-auth
-  # Using manualRef the bucketName is not validated before the sync run
+  # Using manual the bucketName is not validated before the sync run
   bucketName: default
   indices:
   - name: example
