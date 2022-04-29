@@ -8,6 +8,26 @@ metadata:
   namespace: system
 rules:
 - apiGroups:
+  - ""
+  resources:
+  - secret
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
   - couchbase.btburnett.com
   resources:
   - couchbaseindexsets
@@ -33,3 +53,11 @@ rules:
   - get
   - patch
   - update
+- apiGroups:
+  - couchbase.com
+  resources:
+  - couchbaseclusters
+  verbs:
+  - get
+  - list
+  - watch

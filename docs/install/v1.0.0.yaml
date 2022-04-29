@@ -298,6 +298,26 @@ metadata:
   namespace: default
 rules:
 - apiGroups:
+  - ""
+  resources:
+  - secret
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
   - couchbase.btburnett.com
   resources:
   - couchbaseindexsets
@@ -323,6 +343,14 @@ rules:
   - get
   - patch
   - update
+- apiGroups:
+  - couchbase.com
+  resources:
+  - couchbaseclusters
+  verbs:
+  - get
+  - list
+  - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -381,8 +409,8 @@ metadata:
   namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: manager-role
+  kind: Role
+  name: cb-index-operator-manager-role
 subjects:
 - kind: ServiceAccount
   name: cb-index-operator-controller-manager
