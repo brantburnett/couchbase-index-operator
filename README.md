@@ -24,7 +24,7 @@ may target any accessible Couchbase cluster.
 Example installations are available in the `docs/install` directory.
 
 ```sh
-kubectl apply -f https://github.com/brantburnett/couchbase-index-operator/docs/install/v1.0.0.yaml
+kubectl apply -f https://raw.githubusercontent.com/brantburnett/couchbase-index-operator/main/docs/install/v1.0.0.yaml
 ```
 
 This will deploy the operator in the default namespace, and it will only operate on resources
