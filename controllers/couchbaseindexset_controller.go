@@ -64,6 +64,9 @@ type CouchbaseIndexSetReconcileContext struct {
 //+kubebuilder:rbac:groups=couchbase.btburnett.com,namespace=system,resources=couchbaseindexsets,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=couchbase.btburnett.com,namespace=system,resources=couchbaseindexsets/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=couchbase.btburnett.com,namespace=system,resources=couchbaseindexsets/finalizers,verbs=update
+//+kubebuilder:rbac:groups=batch,namespace=system,resources=jobs,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=couchbase.com,namespace=system,resources=couchbaseclusters,verbs=get;list;watch
+//+kubebuilder:rbac:groups="",namespace=system,resources=secret,verbs=get;list;watch
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
