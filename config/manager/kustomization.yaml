@@ -15,4 +15,4 @@ configMapGenerator:
 images:
 - name: controller
   newName: ghcr.io/brantburnett/couchbase-index-operator
-  newTag: 1.0.0-beta001
+  newTag: 1.0.0-beta002
