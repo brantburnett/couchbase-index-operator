@@ -42,7 +42,7 @@ type GlobalSecondaryIndex struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	//+kubebuilder:validation:MinLength:=1
-	//+kubebuilder:validation:Pattern:=^[A-Za-z][A-Za-z0-9#_]*$
+	//+kubebuilder:validation:Pattern:=^[A-Za-z][A-Za-z0-9#_\-]*$
 	// Name of the index
 	Name string `json:"name"`
 	//+kubebuilder:validation:MinLength:=1
