@@ -255,6 +255,14 @@ func (context *CouchbaseIndexSetReconcileContext) reconcileJob() (ctrl.Result, e
 		}
 	}
 
+	// Make sure we're not paused before creating a new job
+	// We do this after all the status updates above in case a job was already running when we were paused
+	// We still run jobs if deleted so we can do cleanup and remove the finalizer
+	if !context.IsDeleting && context.IndexSet.Spec.Paused != nil && *context.IndexSet.Spec.Paused {
+		setNotReady(&context.IndexSet, IndexSetReadyReasonPaused, "Index synchronization is paused")
+		return ctrl.Result{}, nil
+	}
+
 	// Update the config map before starting the job
 
 	if configMapName, err := context.reconcileConfigMap(); err != nil {
