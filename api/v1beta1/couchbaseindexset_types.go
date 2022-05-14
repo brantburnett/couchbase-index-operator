@@ -115,6 +115,10 @@ type CouchbaseIndexSetSpec struct {
 	//+kubebuilder:validation:Minimum:=0
 	// Specifies the number of retries before marking a sync attempt as failed.
 	BackoffLimit *int32 `json:"backoffLimit,omitempty"`
+	//+kubebuilder:default=false
+	//+kubebuilder:validation:Optional
+	// Pauses index synchronization for this index set. Deleting the index set will still perform cleanup.
+	Paused *bool `json:"paused"`
 }
 
 // Defines the observed state of CouchbaseIndexSet

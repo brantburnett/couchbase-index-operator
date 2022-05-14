@@ -148,6 +148,36 @@ spec:
   backoffLimit: 0
 ```
 
+## Pausing
+
+During cluster maintenance it may be desirable to pause index synchronization. Simply set `paused: true` on the
+resource to disable this process. Any current synchronization will complete but no new synchronization processes
+will be started, even if the index set is mutated. They will resume automatically when `paused` is set to `false`.
+
+Note that deleting the index set will still perform a cleanup job, even if the index set was paused at the time it
+was deleted.
+
+```yaml
+apiVersion: couchbase.btburnett.com/v1beta1
+kind: CouchbaseIndexSet
+metadata:
+  name: couchbaseindexset-sample
+spec:
+  cluster: 
+    clusterRef:
+      name: cb-example 
+  bucketName: default
+  paused: true # Set this value to pause index set synchronization
+  indices:
+  - name: example
+    indexKey:
+    - id
+    condition: type = 'airline'
+    replicas: 1
+  activeDeadlineSeconds: 1200
+  backoffLimit: 0
+```
+
 ## Monitoring Status
 
 The status of the indices may be monitored using `kubectl describe`. The `Ready` condition will be `True` if the indices have been fully built and are in sync. the `Syncing` condition indicates if a sync is currently in progress.

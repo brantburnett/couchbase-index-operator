@@ -177,6 +177,11 @@ spec:
                 x-kubernetes-list-map-keys:
                 - name
                 x-kubernetes-list-type: map
+              paused:
+                default: false
+                description: Pauses index synchronization for this index set. Deleting
+                  the index set will still perform cleanup.
+                type: boolean
             required:
             - bucketName
             - cluster

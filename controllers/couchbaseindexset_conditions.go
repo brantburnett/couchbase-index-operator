@@ -37,6 +37,7 @@ const (
 	IndexSetReadyReasonUnknown        IndexSetReadyReason = "Unknown"
 	IndexSetReadyReasonInSync         IndexSetReadyReason = "InSync"
 	IndexSetReadyReasonOutOfSync      IndexSetReadyReason = "OutOfSync"
+	IndexSetReadyReasonPaused         IndexSetReadyReason = "Paused"
 	IndexSetReadyReasonJobFailed      IndexSetReadyReason = "JobFailed"
 	IndexSetReadyReasonConfigMapError IndexSetReadyReason = "ConfigMapError"
 	IndexSetReadyReasonCouchbaseError IndexSetReadyReason = "CouchbaseError"
